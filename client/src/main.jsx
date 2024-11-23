@@ -6,9 +6,10 @@ import App from './App';
 import Homepage from './Page/Homepage';
 import Login from './Page/Login';
 import Register from './Page/Register';
-import Dashboard from './Page/Dashboard'; // Import the Dashboard component
+import Dashboard from './Page/Dashboard'; 
 import Connect from './Page/Connect';
 import CardsPage from './Page/Ownc';
+import DetailsPage from './Page/owncc';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="card" element={<CardsPage />} />
+        <Route path="card1" element={<DetailsPage />} />
       </Route>
       <Route path='/dashboard' element={<App/>}>
       <Route index element={<Dashboard />} /> 
