@@ -1,14 +1,51 @@
-import React from "react";
-
-const honeypotLogs = [
-  { timestamp: "2024-11-24 14:23:45", sourceIP: "192.168.1.5", attackType: "SSH Brute Force", status: "Blocked" },
-  { timestamp: "2024-11-24 14:26:10", sourceIP: "203.0.113.42", attackType: "SQL Injection", status: "Blocked" },
-  { timestamp: "2024-11-24 14:30:33", sourceIP: "198.51.100.14", attackType: "Port Scan", status: "Monitored" },
-  { timestamp: "2024-11-24 14:40:12", sourceIP: "172.16.0.12", attackType: "DDoS", status: "Blocked" },
-  { timestamp: "2024-11-24 14:45:55", sourceIP: "10.0.0.8", attackType: "Credential Stuffing", status: "Monitored" },
-];
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Honeypot = () => {
+  const [logs, setLogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchLogs = async () => {
+      try {
+        // Retrieve user from local storage
+        const user = JSON.parse(localStorage.getItem("user")); // Parse the stored JSON string
+        if (!user || !user.id) {
+          throw new Error("User ID not found in local storage");
+        }
+        const userId = user.id;
+
+        // Fetch logs from the API
+        const response = await axios.get(
+          `http://localhost:8000/honey/honeypot/logs/${userId}`
+        );
+        setLogs(response.data); // Set logs from the response
+      } catch (err) {
+        setError(err.message || "An unexpected error occurred");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLogs();
+  }, []);
+
+  // Loading state
+  if (loading) {
+    return <div className="text-white text-center mt-8">Loading logs...</div>;
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="text-red-500 text-center mt-8">
+        Error: {error}
+      </div>
+    );
+  }
+
+  // Render logs table
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-6">
       <div className="max-w-6xl w-full bg-gray-900 text-white rounded-lg shadow-lg p-8">
@@ -26,39 +63,33 @@ const Honeypot = () => {
                   Timestamp
                 </th>
                 <th className="text-gray-300 text-sm font-semibold py-2 px-4 border-b border-gray-700">
-                  Source IP
+                  Log Entry
                 </th>
                 <th className="text-gray-300 text-sm font-semibold py-2 px-4 border-b border-gray-700">
-                  Attack Type
-                </th>
-                <th className="text-gray-300 text-sm font-semibold py-2 px-4 border-b border-gray-700">
-                  Status
+                  Alert
                 </th>
               </tr>
             </thead>
             <tbody>
-              {honeypotLogs.map((log, index) => (
+              {logs.map((log) => (
                 <tr
-                  key={index}
+                  key={log._id}
                   className="hover:bg-gray-700 transition-all duration-200"
                 >
                   <td className="text-gray-300 text-sm py-2 px-4 border-b border-gray-700">
-                    {log.timestamp}
+                    {log.log_entry.match(/\[([^\]]+)\]/)?.[1]} {/* Extract timestamp from log_entry */}
                   </td>
                   <td className="text-gray-300 text-sm py-2 px-4 border-b border-gray-700">
-                    {log.sourceIP}
-                  </td>
-                  <td className="text-gray-300 text-sm py-2 px-4 border-b border-gray-700">
-                    {log.attackType}
+                    {log.log_entry}
                   </td>
                   <td
                     className={`text-sm py-2 px-4 border-b border-gray-700 font-semibold ${
-                      log.status === "Blocked"
+                      log.alert_flag === "suspicious_activity"
                         ? "text-red-500"
                         : "text-yellow-500"
                     }`}
                   >
-                    {log.status}
+                    {log.alert_flag}
                   </td>
                 </tr>
               ))}

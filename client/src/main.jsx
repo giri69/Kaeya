@@ -14,6 +14,7 @@ import Appp from './Popup';
 import AlertsPage from './Page/AlertsPage';
 import Scanransome from './Page/Scanransome';
 import Honeypot from './Page/Honeypot';
+import DiscordWebhook from './Page/Webhook';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
         <Route path="alerts" element={<AlertsPage />} />
         <Route path='scanransome' element={<Scanransome/>} />
         <Route path='honey' element={<Honeypot/>}/>
+        <Route path='discord' element={<DiscordWebhook/>} />
       </Route>
       <Route path='/dashboard' element={<App/>}>
       <Route index element={<Dashboard />} /> 
