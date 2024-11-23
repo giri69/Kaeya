@@ -4,7 +4,7 @@ from app.schemas.host import HostCreate, HostUpdate, HostResponse
 from typing import List
 
 
-router = APIRouter(prefix="/source", tags=["Sources"])
+router = APIRouter(prefix="/source", tags=["Services (Host)"])
 
 @router.post("/", response_model=HostResponse)
 async def create_host_route(host: HostCreate):
