@@ -1,6 +1,8 @@
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Query
 from app.database import client   
 from bson import ObjectId
+from typing import List
+
 
 db = client["SIEMLogs"]  
 logs_collection = db["log"]
@@ -39,20 +41,27 @@ async def delete_log(log_id: str) -> dict:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Log not found")
     return {"message": "Log deleted successfully"}
 
-async def get_logs_by_user_id(user_id: str) -> list:
+async def get_logs_by_user_id(user_id: str, page: int, page_size: int) -> list:
     try:
-        user_id = ObjectId(user_id)
-    except Exception:
+        # Calculate skip value for pagination
+        skip = (page - 1) * page_size
+
+        # Query with pagination
+        logs_cursor = logs_collection.find({"userId": user_id}).skip(skip).limit(page_size)
+        logs = await logs_cursor.to_list(length=None)
+
+        # Convert ObjectId to string
+        formatted_logs = []
+        for log in logs:
+            log["_id"] = str(log["_id"])  # Convert ObjectId to string
+            if "userId" in log and isinstance(log["userId"], ObjectId):
+                log["userId"] = str(log["userId"])
+            formatted_logs.append(log)
+
+        return formatted_logs
+    except Exception as e:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid user ID format"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to fetch logs: {str(e)}"
         )
- 
-    logs_cursor = logs_collection.find({"user_id": str(user_id)})
-    logs = await logs_cursor.to_list(length=None)  
-
-     
-    for log in logs:
-        log["id"] = str(log["_id"])
-
-    return logs
+        
