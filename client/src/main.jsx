@@ -8,6 +8,7 @@ import Login from './Page/Login';
 import Register from './Page/Register';
 import Dashboard from './Page/Dashboard'; // Import the Dashboard component
 import Connect from './Page/Connect';
+import CardsPage from './Page/Ownc';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,6 +17,7 @@ const router = createBrowserRouter(
         <Route index element={<Homepage />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="card" element={<CardsPage />} />
       </Route>
       <Route path='/dashboard' element={<App/>}>
       <Route index element={<Dashboard />} /> 
