@@ -10,6 +10,7 @@ import Dashboard from './Page/Dashboard';
 import Connect from './Page/Connect';
 import CardsPage from './Page/Ownc';
 import DetailsPage from './Page/owncc';
+import Scanransome from './Page/Scanransome';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
         <Route path="register" element={<Register />} />
         <Route path="card" element={<CardsPage />} />
         <Route path="card1" element={<DetailsPage />} />
+        <Route path='scanransome' element={<Scanransome/>} />
       </Route>
       <Route path='/dashboard' element={<App/>}>
       <Route index element={<Dashboard />} /> 
