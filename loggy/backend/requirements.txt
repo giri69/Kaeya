@@ -1,7 +1,8 @@
 Flask
 Flask-Cors
 Elasticsearch
-numpy
-scikit-learn
-transformers
+Requests
+# numpy
+# scikit-learn
+# transformers
 # torch

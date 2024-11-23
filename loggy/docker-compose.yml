@@ -1,5 +1,35 @@
 version: "3.7"
 services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false    # Disable Elasticsearch security
+    ports:
+      - "9200:9200"
+    networks:
+      - app-network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.16.1
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    networks:
+      - app-network
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.16.1
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5044:5044"  # For HTTP and Beats inputs
+    volumes:
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    networks:
+      - app-network
+
   backend:
     build: ./backend
     ports:
@@ -7,33 +37,9 @@ services:
     depends_on:
       - elasticsearch
       - logstash
+    networks:
+      - app-network
 
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
-    environment:
-      - discovery.type=single-node
-    ports:
-      - "9200:9200"
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.10.2
-    depends_on:
-      - elasticsearch
-    ports:
-      - "5601:5601"
-
-  logstash:
-    image: docker.elastic.co/logstash/logstash:7.16.3
-    depends_on:
-      - elasticsearch
-    ports:
-      - "5044:5044"  # For HTTP and Beats inputs
-    volumes:
-      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+networks:
+  app-network:
+    driver: bridge
