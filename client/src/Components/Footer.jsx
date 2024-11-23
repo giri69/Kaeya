@@ -14,17 +14,7 @@ export default function Footer() {
             <p className="text-gray-400 mb-4">
               Protecting your digital assets from ransomware threats
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-cyan-500">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-cyan-500">
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-cyan-500">
-                <Github className="w-5 h-5" />
-              </a>
-            </div>
+            
           </div>
           
           <div>
@@ -60,7 +50,7 @@ export default function Footer() {
         
         <div className="mt-12 pt-8 border-t border-gray-800">
           <p className="text-center text-gray-400">
-            © {new Date().getFullYear()} CyberShield. All rights reserved.
+            © {new Date().getFullYear()} KAEYA. All rights reserved.
           </p>
         </div>
       </div>

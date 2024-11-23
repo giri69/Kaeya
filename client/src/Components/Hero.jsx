@@ -29,7 +29,7 @@ export default function Hero() {
             
             <div className="flex flex-col sm:flex-row gap-4">
               <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-semibold hover:from-cyan-600 hover:to-blue-600 transition-all transform hover:scale-105">
-                Start Free Trial
+                Get Started
               </button>
               {/* <button className="px-8 py-4 bg-gray-800 text-white rounded-lg font-semibold hover:bg-gray-700 transition-all">
                 Watch Demo
@@ -59,6 +59,15 @@ export default function Hero() {
                   <div>
                     <h3 className="text-white font-semibold">Real-time Protection</h3>
                     <p className="text-gray-400">Continuous monitoring and instant response</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 bg-gray-900/50 p-4 rounded-xl">
+                  <div className="p-3 bg-cyan-500/10 rounded-lg">
+                    <AlertCircle className="w-6 h-6 text-cyan-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-white font-semibold">Real-time Alerts</h3>
+                    <p className="text-gray-400">Bots for instant Alerts</p>
                   </div>
                 </div>
                 
