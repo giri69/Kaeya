@@ -3,7 +3,9 @@ import { BarChart } from "../Components/BarChart.jsx";
 import { LineChart } from "../Components/LineChart.jsx";
 import {PieChart} from "../Components/Piechart.jsx"
 import { useNavigate } from "react-router-dom";
+import HighchartsMap from "../Components/HighchartsMap.jsx";
 import { LayoutDashboard, TrendingUp, PieChart as PieChartIcon, BarChart as BarChartIcon } from 'lucide-react';
+import GlobeComponent from "../Components/HighchartsMap.jsx";
 
 const Dashboard = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -41,6 +43,8 @@ const Dashboard = () => {
       </header>
 
       {/* Main Content */}
+
+      
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -69,6 +73,10 @@ const Dashboard = () => {
             <p className="text-sm text-purple-400 mt-1">+2.1% from last month</p>
           </div>
         </div>
+        <div className=" bg-gray-800 rounded-lg border border-gray-700 p-6 lg:col-span-2 gap-8 mb-6">
+            
+              <GlobeComponent />
+            </div>
 
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -85,6 +93,8 @@ const Dashboard = () => {
             <LineChart />
           </div>
         </div>
+
+           
       </main>
     </div>
 
