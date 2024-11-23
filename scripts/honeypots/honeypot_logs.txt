@@ -1,0 +1,9 @@
+[2024-11-24 03:17:05] From 127.0.0.1 on port 2222: malicious command
+[2024-11-24 03:17:05] From 127.0.0.1 on port 8080: GET /suspicious HTTP/1.1
+Host: honeypot
+[2024-11-24 03:17:43] From 127.0.0.1 on port 2222: malicious command
+[2024-11-24 03:17:43] From 127.0.0.1 on port 8080: GET /suspicious HTTP/1.1
+Host: honeypot
+[2024-11-24 03:17:56] From 127.0.0.1 on port 2222: malicious command
+[2024-11-24 03:17:56] From 127.0.0.1 on port 8080: GET /suspicious HTTP/1.1
+Host: honeypot
