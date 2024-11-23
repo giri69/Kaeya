@@ -5,7 +5,6 @@ from app.schemas.user import UserRegister, UserLogin, UserResponse
 from passlib.hash import bcrypt
 from pymongo.errors import DuplicateKeyError
 
-# Ensure email uniqueness
 users_collection.create_index("email", unique=True)
 
 async def register_user(user: UserRegister) -> UserResponse:
@@ -14,7 +13,7 @@ async def register_user(user: UserRegister) -> UserResponse:
 
     try:
         result = await users_collection.insert_one(user_data)
-        user_data["_id"] = str(result.inserted_id)  # Add MongoDB ObjectId
+        user_data["_id"] = str(result.inserted_id)  
         return UserResponse(id=user_data["_id"], name=user_data["name"], email=user_data["email"])
     except DuplicateKeyError:
         raise HTTPException(
