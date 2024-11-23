@@ -4,10 +4,24 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
     environment:
       - discovery.type=single-node
+      - xpack.security.enabled=false    # Disable Elasticsearch security
     ports:
       - "9200:9200"
+    networks:
+      - elastic-network
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.10.2
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200  # Elasticsearch host for Kibana
+      - xpack.security.enabled=false                  # Disable Kibana security
+    depends_on:
+      - elasticsearch
     ports:
       - "5601:5601"
+    networks:
+      - elastic-network
+
+networks:
+  elastic-network:
+    driver: bridge
