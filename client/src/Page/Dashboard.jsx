@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+import { BarChart } from "../Components/BarChart.jsx";
+import { LineChart } from "../Components/LineChart.jsx";
+import {PieChart} from "../Components/Piechart.jsx"
 import { useNavigate } from "react-router-dom";
+import { LayoutDashboard, TrendingUp, PieChart as PieChartIcon, BarChart as BarChartIcon } from 'lucide-react';
 
 const Dashboard = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -18,9 +22,15 @@ const Dashboard = () => {
 
   return (
     <div className="w-screen h-screen bg-gray-800">
-      <nav className="bg-grey-400 py-4 px-8">
-        <div className="container flex justify-between items-center">
-          <h1 className="text-white text-2xl font-bold">Dashboard</h1>
+    
+    <div className="min-h-screen bg-gray-900">
+      {/* Header */}
+      <header className="bg-gray-800 border-b border-gray-700">
+        <div className="flex justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center space-x-3">
+            <LayoutDashboard className="h-8 w-8 text-indigo-400" />
+            <h1 className="text-2xl font-bold text-white">Analytics Dashboard</h1>
+          </div>
           <button
             onClick={openPopup}
             className="bg-white text-blue-600 font-semibold py-2 px-4 rounded shadow hover:bg-gray-100 transition"
@@ -28,7 +38,55 @@ const Dashboard = () => {
             Open Form
           </button>
         </div>
-      </nav>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Stats Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-medium text-gray-200">Total Revenue</h3>
+              <TrendingUp className="h-6 w-6 text-emerald-400" />
+            </div>
+            <p className="text-3xl font-bold text-white mt-2">$24,780</p>
+            <p className="text-sm text-emerald-400 mt-1">+12.5% from last month</p>
+          </div>
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-medium text-gray-200">Active Users</h3>
+              <PieChartIcon className="h-6 w-6 text-blue-400" />
+            </div>
+            <p className="text-3xl font-bold text-white mt-2">1,482</p>
+            <p className="text-sm text-blue-400 mt-1">+8.2% from last month</p>
+          </div>
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-medium text-gray-200">Conversion Rate</h3>
+              <BarChartIcon className="h-6 w-6 text-purple-400" />
+            </div>
+            <p className="text-3xl font-bold text-white mt-2">3.24%</p>
+            <p className="text-sm text-purple-400 mt-1">+2.1% from last month</p>
+          </div>
+        </div>
+
+        {/* Charts Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+            <h3 className="text-lg font-medium text-gray-200 mb-4">Revenue vs Expenses</h3>
+            <BarChart />
+          </div>
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
+            <h3 className="text-lg font-medium text-gray-200 mb-4">Product Distribution</h3>
+            <PieChart />
+          </div>
+          <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 lg:col-span-2">
+            <h3 className="text-lg font-medium text-gray-200 mb-4">User Growth Trend</h3>
+            <LineChart />
+          </div>
+        </div>
+      </main>
+    </div>
 
       
       {isPopupOpen && (

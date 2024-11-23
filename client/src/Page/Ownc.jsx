@@ -25,7 +25,7 @@ const CardsPage = () => {
   return (
     <div className="w-screen h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white flex flex-col items-center p-6">
       {/* Header */}
-      <h1 className="text-4xl font-bold mb-10 text-center">
+      <h1 className="text-3xl font-extrabold text-blue-400 text-center mb-6">
         Discover Cloud Services
       </h1>
       <p className="text-gray-400 text-center mb-10 max-w-2xl">
