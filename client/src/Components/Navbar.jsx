@@ -10,7 +10,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Shield className="w-8 h-8 text-cyan-500" />
-            <span className="ml-2 text-xl font-bold text-white">Kaeya</span>
+            <span className="ml-2 text-xl font-bold text-white">KAEYA</span>
           </div>
           
           <div className="hidden md:block">

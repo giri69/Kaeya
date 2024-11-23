@@ -3,7 +3,6 @@ import { BarChart } from "../Components/BarChart.jsx";
 import { LineChart } from "../Components/LineChart.jsx";
 import {PieChart} from "../Components/Piechart.jsx"
 import { useNavigate } from "react-router-dom";
-import HighchartsMap from "../Components/HighchartsMap.jsx";
 import { LayoutDashboard, TrendingUp, PieChart as PieChartIcon, BarChart as BarChartIcon } from 'lucide-react';
 import GlobeComponent from "../Components/HighchartsMap.jsx";
 
@@ -35,16 +34,12 @@ const Dashboard = () => {
           </div>
           <button
             onClick={openPopup}
-            className="bg-white text-blue-600 font-semibold py-2 px-4 rounded shadow hover:bg-gray-100 transition"
-          >
-            Open Form
+            className="bg-white text-blue-600 font-semibold py-2 px-4 rounded shadow hover:bg-gray-100 transition">
+            Connect
           </button>
         </div>
       </header>
 
-      {/* Main Content */}
-
-      
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
