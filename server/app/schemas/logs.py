@@ -1,5 +1,6 @@
-from pydantic import BaseModel
-from typing import Optional
+
+from pydantic import BaseModel, Field
+from typing import List, Optional
 from datetime import datetime
 
 class LogBase(BaseModel):
@@ -18,3 +19,27 @@ class LogUpdate(BaseModel):
 
 class LogResponse(LogBase):
     id: str
+
+# Schema for an individual log entry
+class Log(BaseModel):
+    timestamp: str
+    level: str
+    file_name: str
+    message: str
+    hash: str
+
+
+# Schema for the log batch entry (MongoDB document)
+class LogBatch(BaseModel):
+    id: Optional[str] = Field(alias="_id")  # Optional MongoDB document ID
+    userId: str
+    serviceId: str
+    log_batch: List[Log]  # List of log entries
+
+
+# Schema for the response of the log counter API
+class LogCountResponse(BaseModel):
+    INFO: int
+    WARN: int
+    DEBUG: int
+    ERROR: int

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BarChart } from "../Components/BarChart.jsx";
 import { LineChart } from "../Components/LineChart.jsx";
-import {PieChart} from "../Components/Piechart.jsx"
+import {PieChart} from "../Components/PieChart.jsx"
 import { useNavigate } from "react-router-dom";
 import { LayoutDashboard, TrendingUp, PieChart as PieChartIcon, BarChart as BarChartIcon } from 'lucide-react';
 import GlobeComponent from "../Components/HighchartsMap.jsx";
@@ -80,7 +80,7 @@ const Dashboard = () => {
             <BarChart />
           </div>
           <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-            <h3 className="text-lg font-medium text-gray-200 mb-4">Product Distribution</h3>
+            <h3 className="text-lg font-medium text-gray-200 mb-4">Application Log Distribution</h3>
             <PieChart />
           </div>
           <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 lg:col-span-2">

@@ -1,13 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ResponsivePie } from '@nivo/pie';
-
-const data = [
-  { id: 'Product A', value: 35 },
-  { id: 'Product B', value: 25 },
-  { id: 'Product C', value: 20 },
-  { id: 'Product D', value: 15 },
-  { id: 'Product E', value: 5 },
-];
 
 const theme = {
   labels: {
@@ -22,7 +14,56 @@ const theme = {
   },
 };
 
-export  function PieChart() {
+export function PieChart() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    // Fetch user_id from localStorage
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userId = user?.id;
+
+    if (!userId) {
+      setError('User ID not found in local storage');
+      setLoading(false);
+      return;
+    }
+
+    // Fetch application logs
+    const fetchLogs = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/logs/logs/${userId}/count`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch logs');
+        }
+        const logs = await response.json();
+
+        // Map response to pie chart format
+        const chartData = Object.entries(logs).map(([key, value]) => ({
+          id: key,
+          value,
+        }));
+
+        setData(chartData);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLogs();
+  }, []);
+
+  if (loading) {
+    return <div className="text-white">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-red-500">Error: {error}</div>;
+  }
+
   return (
     <div className="h-[300px] w-full">
       <ResponsivePie
@@ -68,3 +109,5 @@ export  function PieChart() {
     </div>
   );
 }
+
+export default PieChart;

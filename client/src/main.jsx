@@ -10,8 +10,12 @@ import Dashboard from './Page/Dashboard';
 import Connect from './Page/Connect';
 import CardsPage from './Page/Ownc';
 import DetailsPage from './Page/owncc';
+<<<<<<< HEAD
 import Appp from './Popup';
 import AlertsPage from './Page/AlertsPage';
+=======
+import Scanransome from './Page/Scanransome';
+>>>>>>> 6e427f23d98beeef6a455ae7261a4e7a0ef14721
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +27,11 @@ const router = createBrowserRouter(
         <Route path="register" element={<Register />} />
         <Route path="card" element={<CardsPage />} />
         <Route path="card1" element={<DetailsPage />} />
+<<<<<<< HEAD
         <Route path="alerts" element={<AlertsPage />} />
+=======
+        <Route path='scanransome' element={<Scanransome/>} />
+>>>>>>> 6e427f23d98beeef6a455ae7261a4e7a0ef14721
       </Route>
       <Route path='/dashboard' element={<App/>}>
       <Route index element={<Dashboard />} /> 

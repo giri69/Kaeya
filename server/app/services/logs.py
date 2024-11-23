@@ -2,13 +2,14 @@ from fastapi import HTTPException, status, Query
 from app.database import client   
 from bson import ObjectId
 from typing import List
+from collections import Counter
+
 
 
 db = client["SIEMLogs"]  
 logs_collection = db["log"]
 
 async def create_log(log_data: dict) -> dict:
-    
     try:
         log_data["user_id"] = str(ObjectId(log_data["user_id"]))
     except Exception:
@@ -64,4 +65,36 @@ async def get_logs_by_user_id(user_id: str, page: int, page_size: int) -> list:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to fetch logs: {str(e)}"
         )
+
+async def count_log_levels(user_id: str) -> dict:
+    try:
+        # Query to fetch logs by user_id
+        user_logs = await logs_collection.find_one({"userId": user_id})
         
+        if not user_logs or "log_batch" not in user_logs:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"No logs found for user_id: {user_id}"
+            )
+
+        # Extract log_batch
+        log_batch = user_logs["log_batch"]
+
+        # Count log levels
+        log_levels = [log["level"] for log in log_batch]
+        level_counts = Counter(log_levels)
+
+        # Format response
+        result = {
+            "INFO": level_counts.get("INFO", 0),
+            "WARN": level_counts.get("WARN", 0),
+            "DEBUG": level_counts.get("DEBUG", 0),
+            "ERROR": level_counts.get("ERROR", 0),
+        }
+
+        return result
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to count log levels: {str(e)}"
+        )
