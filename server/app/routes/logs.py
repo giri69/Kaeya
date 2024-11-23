@@ -1,7 +1,9 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from app.services.logs import create_log, get_log, update_log, delete_log, get_logs_by_user_id
 from app.schemas.logs import LogCreate, LogUpdate, LogResponse
-from typing import List
+from typing import List, Any
+from fastapi.responses import JSONResponse
+
 
 router = APIRouter(prefix="/logs", tags=["Logs"])
 
@@ -30,12 +32,11 @@ async def update_log_route(log_id: str, log_update: LogUpdate):
 async def delete_log_route(log_id: str):
     return await delete_log(log_id)
 
-@router.get("/user/{user_id}", response_model=List[LogResponse])
-async def get_logs_by_user_id_route(user_id: str):
-    logs = await get_logs_by_user_id(user_id)
-    return [
-        LogResponse(
-            id=log["_id"], message=log["message"], level=log["level"], timestamp=log["timestamp"], user_id=log["user_id"]
-        )
-        for log in logs
-    ]
+@router.get("/user/{user_id}", response_model=Any)
+async def get_logs_by_user_id_route(
+    user_id: str, 
+    page: int = Query(1, ge=1),  # Page number (default is 1, must be >= 1)
+    page_size: int = Query(1, ge=1, le=100)  # Page size (default is 1, must be >= 1 and <= 100)
+):
+    logs = await get_logs_by_user_id(user_id, page, page_size)
+    return JSONResponse(content=logs)
