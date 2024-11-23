@@ -33,25 +33,29 @@ def load_model(file_path):
         raise HTTPException(status_code=500, detail=f"Unexpected error loading model: {e}")
 
 
-def load_csv(file_path):
+def load_csv(file_path, required_columns, num_rows=1000):
     """
-    Load the CSV file containing ransomware data.
+    Load the CSV file containing ransomware data and retrieve only the required columns.
+    Optionally limit the number of rows loaded.
     """
-    print("looking",file_path)
     try:
-        data = pd.read_csv(file_path)
+        # Load the CSV file with the correct delimiter and limit rows
+        data = pd.read_csv(file_path, sep='|', usecols=required_columns, nrows=num_rows)
         
         if data.empty:
             raise HTTPException(status_code=400, detail="CSV file is empty.")
-        print(f"CSV file successfully loaded from {file_path}")
+        print(f"CSV file successfully loaded with columns: {list(data.columns)} and {len(data)} rows.")
         return data
     except FileNotFoundError:
-        # print(file_path)
         raise HTTPException(status_code=500, detail="CSV file not found.")
     except pd.errors.EmptyDataError:
         raise HTTPException(status_code=400, detail="CSV file is empty.")
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=f"Column error: {ve}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading CSV file: {e}")
+
+
 
 
 def preprocess_data(data, features):
@@ -83,9 +87,16 @@ def predict_ransomware():
         # Load the model
         model = load_model(MODEL_PATH)
 
+        # Specify the columns to extract
+        required_columns = ['Name', 'ImageBase', 'VersionInformationSize', 'SectionsMaxEntropy']
+        
         # Load and preprocess CSV data
-        data = load_csv(CSV_FILE_PATH)
-        input_data, file_names = preprocess_data(data, FEATURES)
+        data = load_csv(CSV_FILE_PATH, required_columns)
+        print(f"Retrieved Data: \n{data.head()}")  # Debugging step
+        
+        # Split into features and file names
+        input_data = data[['ImageBase', 'VersionInformationSize', 'SectionsMaxEntropy']]
+        file_names = data['Name']
 
         # Perform predictions
         predictions = model.predict(input_data)
