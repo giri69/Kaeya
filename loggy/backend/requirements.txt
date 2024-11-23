@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+Elasticsearch
+numpy
+scikit-learn
+transformers
+# torch

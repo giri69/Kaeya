@@ -1,0 +1,6 @@
+[
+    {"message": "Application started successfully", "level": "info", "timestamp": "2024-11-22T10:00:00Z"},
+    {"message": "Database connection failed", "level": "error", "timestamp": "2024-11-22T10:05:00Z"},
+    {"message": "User login failed for user@example.com", "level": "warn", "timestamp": "2024-11-22T10:10:00Z"}
+  ]
+  
