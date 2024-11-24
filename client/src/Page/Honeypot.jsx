@@ -47,7 +47,7 @@ const Honeypot = () => {
 
   // Render logs table
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-6">
+    <div className="w-screen h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-6">
       <div className="max-w-6xl w-full bg-gray-900 text-white rounded-lg shadow-lg p-8">
         <h1 className="text-4xl font-bold text-blue-400 text-center mb-6">
           Honeypot Logs

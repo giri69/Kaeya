@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Modal, Box, Button, Typography } from "@mui/material";
+import axios from "axios";
 
 const modalStyle = {
   position: "absolute",
@@ -17,25 +18,55 @@ const modalStyle = {
 };
 
 const Appp = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState(null);
+  const [intervalId, setIntervalId] = useState(null);
 
-  const handleOpen = () => {
-    setOpen(true);
+  // Function to check for unviewed alerts
+  const fetchAlerts = useCallback(async () => {
+    try {
+      // Get user ID from local storage
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user || !user.id) {
+        throw new Error("User ID not found in local storage");
+      }
+      const userId = user.id;
+
+      // Fetch alerts from the API
+      const response = await axios.get(`http://localhost:8000/alert/${userId}`);
+      const alerts = response.data;
+
+      // Check if any alert has "viewed": false
+      if (alerts.some((alert) => !alert.viewed)) {
+        setOpen(true); // Open the modal if unviewed alerts exist
+      }
+    } catch (err) {
+      setError(err.message || "An error occurred while fetching alerts.");
+    }
+  }, []);
+
+  // Start periodic check for alerts
+  useEffect(() => {
+    // Trigger alert checks every 2 seconds
+    const id = setInterval(fetchAlerts, 2000);
+    setIntervalId(id);
+
+    // Cleanup on unmount
+    return () => clearInterval(id);
+  }, [fetchAlerts]);
+
+  // Manual trigger for fetching alerts
+  const triggerAlertCheck = () => {
+    fetchAlerts(); // Manually fetch alerts on demand
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  // Simulate ransomware detection
-  const detectRansomware = () => {
-    handleOpen();
-  };
-
   return (
     <div
       style={{
-        // backgroundColor: "#121212",
         height: "100vh",
         display: "flex",
         alignItems: "center",
@@ -44,7 +75,25 @@ const Appp = () => {
         fontFamily: "Arial, sans-serif",
       }}
     >
-
+      {error && (
+        <Typography variant="body1" style={{ color: "#ff3e3e", marginBottom: "20px" }}>
+          {error}
+        </Typography>
+      )}
+      <div>
+        <Button
+          onClick={triggerAlertCheck}
+          variant="contained"
+          style={{
+            marginBottom: "20px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            fontWeight: "bold",
+          }}
+        >
+          Check Alerts
+        </Button>
+      </div>
       <Modal open={open} onClose={handleClose}>
         <Box style={modalStyle}>
           <Typography variant="h5" style={{ fontWeight: "bold", marginBottom: "10px" }}>
