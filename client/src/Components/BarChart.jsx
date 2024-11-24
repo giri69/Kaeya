@@ -2,12 +2,12 @@ import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 
 const data = [
-  { month: '5 min', revenue: 120, expenses: 90 },
-  { month: '10 min', revenue: 140, expenses: 85 },
-  { month: '15 min', revenue: 160, expenses: 95 },
-  { month: '20 min', revenue: 180, expenses: 100 },
-  { month: '25 min', revenue: 200, expenses: 110 },
-  { month: '30 min', revenue: 220, expenses: 115 },
+  { month: '5 min', Tracked: 120, Safe: 90 },
+  { month: '10 min', Tracked: 140, Safe: 85 },
+  { month: '15 min', Tracked: 160, Safe: 95 },
+  { month: '20 min', Tracked: 180, Safe: 100 },
+  { month: '25 min', Tracked: 200, Safe: 110 },
+  { month: '30 min', Tracked: 220, Safe: 115 },
 ];
 
 const theme = {
@@ -41,7 +41,7 @@ export function BarChart() {
       <ResponsiveBar
         theme={theme}
         data={data}
-        keys={['revenue', 'expenses']}
+        keys={['Tracked', 'Safe']}
         indexBy="month"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.3}
