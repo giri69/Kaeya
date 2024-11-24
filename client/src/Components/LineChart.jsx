@@ -5,12 +5,12 @@ const data = [
   {
     id: 'User Growth',
     data: [
-      { x: 'Jan', y: 100 },
-      { x: 'Feb', y: 120 },
-      { x: 'Mar', y: 150 },
-      { x: 'Apr', y: 180 },
-      { x: 'May', y: 220 },
-      { x: 'Jun', y: 270 },
+      { x: '1 min', y: 100 },
+      { x: '2 min', y: 220 },
+      { x: '3 min', y: 450 },
+      { x: '4 min', y: 680 },
+      { x: '5 min', y: 820 },
+      { x: '6 min', y: 1070 },
     ],
   },
 ];
@@ -69,7 +69,7 @@ export function LineChart() {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Month',
+          legend: 'Time',
           legendOffset: 36,
           legendPosition: 'middle',
         }}
@@ -77,7 +77,7 @@ export function LineChart() {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Users',
+          legend: 'Logs',
           legendOffset: -40,
           legendPosition: 'middle',
         }}
