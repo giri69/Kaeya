@@ -23,8 +23,6 @@ const router = createBrowserRouter(
         <Route path="register" element={<Register />} />
         <Route path="card" element={<DetailsPage />} />
         <Route path="alerts" element={<AlertsPage />} />
-        <Route path="card" element={<DetailsPage />} />
-        <Route path="alerts" element={<AlertsPage />} />
         <Route path='scanransome' element={<Scanransome/>} />
         <Route path='honey' element={<Honeypot/>}/>
         <Route path='discord' element={<DiscordWebhook/>} />

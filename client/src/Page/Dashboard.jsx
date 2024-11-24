@@ -32,6 +32,32 @@ const Dashboard = () => {
             <LayoutDashboard className="h-8 w-8 text-indigo-400" />
             <h1 className="text-2xl font-bold text-white">Analytics Dashboard</h1>
           </div>
+          <div className="hidden md:flex space-x-6">
+  <a
+    href="/honey"
+    className="text-white px-4 py-2 rounded-lg hover:text-cyan-500 hover:bg-gray-800 transition-all duration-300"
+  >
+    Honeypot
+  </a>
+  <a
+    href="/alerts"
+    className="text-white px-4 py-2 rounded-lg hover:text-cyan-500 hover:bg-gray-800 transition-all duration-300"
+  >
+    Alerts Page
+  </a>
+  <a
+    href="/scanransome"
+    className="text-white px-4 py-2 rounded-lg hover:text-cyan-500 hover:bg-gray-800 transition-all duration-300"
+  >
+    Scan
+  </a>
+  <a
+    href="/discord"
+    className="text-white px-4 py-2 rounded-lg hover:text-cyan-500 hover:bg-gray-800 transition-all duration-300"
+  >
+    Discord
+  </a>
+</div>
           <button
             onClick={openPopup}
             className="bg-white text-blue-600 font-semibold py-2 px-4 rounded shadow hover:bg-gray-100 transition">

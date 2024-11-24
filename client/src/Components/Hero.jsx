@@ -1,7 +1,9 @@
 import React from 'react';
 import { Shield, Lock, AlertCircle } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
+  const navigate = useNavigate();
   return (
     <div className="relative min-h-screen bg-gray-900 flex items-center">
       {/* Gradient Background */}
@@ -28,7 +30,7 @@ export default function Hero() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-semibold hover:from-cyan-600 hover:to-blue-600 transition-all transform hover:scale-105">
+              <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-semibold hover:from-cyan-600 hover:to-blue-600 transition-all transform hover:scale-105" onClick={() => navigate("/login")}>
                 Get Started
               </button>
               {/* <button className="px-8 py-4 bg-gray-800 text-white rounded-lg font-semibold hover:bg-gray-700 transition-all">
