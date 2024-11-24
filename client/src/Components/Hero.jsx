@@ -6,12 +6,9 @@ export default function Hero() {
   const navigate = useNavigate();
   return (
     <div className="relative min-h-screen bg-gray-900 flex items-center">
-      {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2670&q=80')] opacity-10 mix-blend-overlay"></div>
       </div>
-
-      {/* Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>

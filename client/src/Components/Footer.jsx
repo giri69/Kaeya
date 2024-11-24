@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center mb-4">
               <Shield className="w-8 h-8 text-cyan-500" />
-              <span className="ml-2 text-xl font-bold text-white">CyberShield</span>
+              <span className="ml-2 text-xl font-bold text-white">KAEYA</span>
             </div>
             <p className="text-gray-400 mb-4">
               Protecting your digital assets from ransomware threats

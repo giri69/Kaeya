@@ -3,7 +3,7 @@ import { BarChart } from "../Components/BarChart.jsx";
 import { LineChart } from "../Components/LineChart.jsx";
 import {PieChart} from "../Components/PieChart.jsx"
 import { useNavigate } from "react-router-dom";
-import { LayoutDashboard, TrendingUp, PieChart as PieChartIcon, BarChart as BarChartIcon } from 'lucide-react';
+import { LayoutDashboard, TrendingUp, PieChart as PieChartIcon, BarChart as BarChartIcon, Shield } from 'lucide-react';
 import GlobeComponent from "../Components/HighchartsMap.jsx";
 
 const Dashboard = () => {
@@ -29,7 +29,7 @@ const Dashboard = () => {
       <header className="bg-gray-800 border-b border-gray-700">
         <div className="flex justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-3">
-            <LayoutDashboard className="h-8 w-8 text-indigo-400" />
+          <Shield className="w-8 h-8 text-cyan-500" />
             <h1 className="text-2xl font-bold text-white">Analytics Dashboard</h1>
           </div>
           <div className="hidden md:flex space-x-6">
