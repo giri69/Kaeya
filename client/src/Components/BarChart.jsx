@@ -2,12 +2,12 @@ import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 
 const data = [
-  { month: 'Jan', revenue: 120, expenses: 90 },
-  { month: 'Feb', revenue: 140, expenses: 85 },
-  { month: 'Mar', revenue: 160, expenses: 95 },
-  { month: 'Apr', revenue: 180, expenses: 100 },
-  { month: 'May', revenue: 200, expenses: 110 },
-  { month: 'Jun', revenue: 220, expenses: 115 },
+  { month: '5 min', revenue: 120, expenses: 90 },
+  { month: '10 min', revenue: 140, expenses: 85 },
+  { month: '15 min', revenue: 160, expenses: 95 },
+  { month: '20 min', revenue: 180, expenses: 100 },
+  { month: '25 min', revenue: 200, expenses: 110 },
+  { month: '30 min', revenue: 220, expenses: 115 },
 ];
 
 const theme = {
@@ -54,7 +54,7 @@ export function BarChart() {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Month',
+          // legend: 'Month',
           legendPosition: 'middle',
           legendOffset: 32,
         }}
@@ -62,7 +62,7 @@ export function BarChart() {
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: 'Amount ($)',
+          // legend: 'Amount ($)',
           legendPosition: 'middle',
           legendOffset: -40,
         }}

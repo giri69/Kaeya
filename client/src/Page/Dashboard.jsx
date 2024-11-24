@@ -71,27 +71,27 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium text-gray-200">Total Revenue</h3>
+              <h3 className="text-lg font-medium text-gray-200">Logs Collected</h3>
               <TrendingUp className="h-6 w-6 text-emerald-400" />
             </div>
-            <p className="text-3xl font-bold text-white mt-2">$24,780</p>
-            <p className="text-sm text-emerald-400 mt-1">+12.5% from last month</p>
+            <p className="text-3xl font-bold text-white mt-2">1243</p>
+            <p className="text-sm text-emerald-400 mt-1">+7.5% from last day</p>
           </div>
           <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium text-gray-200">Active Users</h3>
+              <h3 className="text-lg font-medium text-gray-200">Bytes Sent</h3>
               <PieChartIcon className="h-6 w-6 text-blue-400" />
             </div>
-            <p className="text-3xl font-bold text-white mt-2">1,482</p>
-            <p className="text-sm text-blue-400 mt-1">+8.2% from last month</p>
+            <p className="text-3xl font-bold text-white mt-2">8323493</p>
+            <p className="text-sm text-blue-400 mt-1">+8.2% from last day</p>
           </div>
           <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium text-gray-200">Conversion Rate</h3>
+              <h3 className="text-lg font-medium text-gray-200">Bytes Recieved</h3>
               <BarChartIcon className="h-6 w-6 text-purple-400" />
             </div>
-            <p className="text-3xl font-bold text-white mt-2">3.24%</p>
-            <p className="text-sm text-purple-400 mt-1">+2.1% from last month</p>
+            <p className="text-3xl font-bold text-white mt-2">2756500</p>
+            <p className="text-sm text-purple-400 mt-1">+7.1% from last day</p>
           </div>
         </div>
         <div className=" bg-gray-800 rounded-lg border border-gray-700 p-6 lg:col-span-2 gap-8 mb-6">
@@ -102,7 +102,7 @@ const Dashboard = () => {
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
-            <h3 className="text-lg font-medium text-gray-200 mb-4">Revenue vs Expenses</h3>
+            <h3 className="text-lg font-medium text-gray-200 mb-4">Tracked Files vs Safe Files</h3>
             <BarChart />
           </div>
           <div className="bg-gray-800 rounded-lg border border-gray-700 p-6">
@@ -110,7 +110,7 @@ const Dashboard = () => {
             <PieChart />
           </div>
           <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 lg:col-span-2">
-            <h3 className="text-lg font-medium text-gray-200 mb-4">User Growth Trend</h3>
+            <h3 className="text-lg font-medium text-gray-200 mb-4">Logs Count Growth </h3>
             <LineChart />
           </div>
         </div>
