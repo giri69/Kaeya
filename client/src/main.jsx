@@ -8,9 +8,7 @@ import Login from './Page/Login';
 import Register from './Page/Register';
 import Dashboard from './Page/Dashboard'; 
 import Connect from './Page/Connect';
-import CardsPage from './Page/Ownc';
 import DetailsPage from './Page/owncc';
-import Appp from './Popup';
 import AlertsPage from './Page/AlertsPage';
 import Scanransome from './Page/Scanransome';
 import Honeypot from './Page/Honeypot';
@@ -23,8 +21,9 @@ const router = createBrowserRouter(
         <Route index element={<Homepage />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="card" element={<CardsPage />} />
-        <Route path="card1" element={<DetailsPage />} />
+        <Route path="card" element={<DetailsPage />} />
+        <Route path="alerts" element={<AlertsPage />} />
+        <Route path="card" element={<DetailsPage />} />
         <Route path="alerts" element={<AlertsPage />} />
         <Route path='scanransome' element={<Scanransome/>} />
         <Route path='honey' element={<Honeypot/>}/>

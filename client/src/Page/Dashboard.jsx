@@ -18,7 +18,7 @@ const Dashboard = () => {
   const handleSubmit = () => {
     console.log({ name, type: "EC2", description });
     closePopup();
-    navigate("/cards");
+    navigate("/card");
   };
 
   return (
