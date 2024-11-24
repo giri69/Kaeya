@@ -158,6 +158,7 @@ const Dashboard = () => {
         </div>
       </form>
     </div>
+    <iframe src="http://localhost:5601/app/dashboards#/view/71add431-0fd9-4c07-8ee1-f3226dcf5fa7?embed=true&_g=(refreshInterval%3A(pause%3A!t%2Cvalue%3A60000)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))" height="600" width="800"></iframe>
   </div>
 )}
 
