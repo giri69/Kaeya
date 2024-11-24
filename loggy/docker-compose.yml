@@ -18,6 +18,8 @@ services:
       - "5601:5601"
     networks:
       - app-network
+    volumes:
+      - ./kibana/kibana.conf:/usr/share/kibana/config/kibana.conf
 
   logstash:
     image: docker.elastic.co/logstash/logstash:8.16.1
