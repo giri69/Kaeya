@@ -6,6 +6,7 @@ from bson import ObjectId
 from datetime import datetime
 from bson import ObjectId
 from app.database import db
+import aiohttp
 
 alert_connection = db["alertconnect"]
 users_collection = db["user"]
@@ -50,14 +51,16 @@ from fastapi import HTTPException, status
 from app.database import db
 
 alert_collection = db["alerts"]
-
+alertcollect = db["alertconnect"]
 # Business Logic and Database Operations
 
 async def create_alert(data):
     """
-    Inserts a new alert into the database.
+    Inserts a new alert into the database, sends a notification to the Discord webhook,
+    and triggers an external API if a webhook exists.
     """
     try:
+        # Validate user_id
         user_id = ObjectId(data.user_id)
     except Exception:
         raise HTTPException(
@@ -65,6 +68,7 @@ async def create_alert(data):
             detail="Invalid user ID format"
         )
 
+    # Create the alert
     alert = {
         "_id": ObjectId(),
         "user_id": user_id,
@@ -73,15 +77,56 @@ async def create_alert(data):
         "timestamp": datetime.utcnow()  # Current timestamp
     }
 
+    # Insert the alert into the database
     result = await alert_collection.insert_one(alert)
 
-    # Prepare the response
+    # Format the alert for response
     alert["_id"] = str(result.inserted_id)
     alert["user_id"] = str(alert["user_id"])
     alert["timestamp"] = alert["timestamp"].isoformat()
 
-    return alert
+    # Query the alertconnect collection to find the Discord webhook
+    webhook_data = await alertcollect.find_one({"user_id": alert["user_id"], "type": "discord"})
 
+    if webhook_data and "webhookUrl" in webhook_data:
+        # Send the alert notification to the Discord webhook
+        webhook_url = webhook_data["webhookUrl"]
+        message = {
+            "content": f"🔔 Alert: {alert['alert_title']}\nTimestamp: {alert['timestamp']}"
+        }
+
+        # Send the notification to the Discord webhook
+        async with aiohttp.ClientSession() as session:
+            try:
+                # Send to Discord webhook
+                async with session.post(webhook_url, json=message) as response:
+                    if response.status != 204:
+                        raise HTTPException(
+                            status_code=response.status,
+                            detail="Failed to send notification to Discord webhook"
+                        )
+
+                # Trigger external API
+                external_api_payload = {
+                    "message": alert["alert_title"],
+                    "webhookUrl": webhook_url
+                }
+                async with session.post(
+                    "https://1b24d2inri.execute-api.ap-south-1.amazonaws.com/DiscordHook",
+                    json=external_api_payload
+                ) as external_response:
+                    if external_response.status != 200:
+                        raise HTTPException(
+                            status_code=external_response.status,
+                            detail="Failed to trigger external DiscordHook API"
+                        )
+            except Exception as e:
+                raise HTTPException(
+                    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    detail=f"Error sending notifications: {str(e)}"
+                )
+
+    return alert
 
 async def get_user_alerts(user_id: str):
     """
