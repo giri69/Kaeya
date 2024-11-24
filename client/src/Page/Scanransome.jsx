@@ -26,7 +26,7 @@ const ScanRansomware = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 px-4 py-8">
+    <div className="w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 px-4 py-8">
       <div className="max-w-6xl w-full bg-gray-900 text-white rounded-lg shadow-lg p-8">
         <h1 className="text-4xl font-bold text-blue-400 text-center mb-6">
           Ransomware File Scanner
